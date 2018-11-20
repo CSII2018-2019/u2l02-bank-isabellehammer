@@ -1,11 +1,14 @@
+import java.text.NumberFormat;
 
 public class U2L02 {
 	private String userName;
 	private int currentBalance;
+	private int lowestBalanceAllowed;
 	
 	public U2L02 () {
 		setName("Not Set");
 		setBalance(0);
+		setLowest(100);
 	}
 	
 	private void setName(String string) {
@@ -16,6 +19,7 @@ public class U2L02 {
 	public U2L02(String n, int balance, int low) {
 		setName(n);
 		setBalance(balance);
+		setLowest(low);
 	}
 	
 	public String getName() {
@@ -26,17 +30,25 @@ public class U2L02 {
 		return currentBalance;
 	}
 	
+	public int getLowest() {
+		return lowestBalanceAllowed;
+	}
+	
 	public void setBalance(int balance) {
-		if (balance >= 100) {
+		if (balance >= lowestBalanceAllowed) {
 			currentBalance = balance;
 		}else {
-			currentBalance = 100;
-			System.out.println("The lowest balance allowable is $100. Defaulting to 100.");
+			System.out.println("Your account has less than $100. Are you okay with that?");
 		}
 	}
 	
+	double money = getBalance();
+	NumberFormat formatter = NumberFormat.getCurrencyInstance();
+	String moneyString = formatter.format(money);
+	
+	
 	public String toString() {
-		return getName() + ", you have $" + getBalance() + " in your account.";
+		return getName() + ", you have $" + moneyString + " in your account.";
 	}
 	
 }
